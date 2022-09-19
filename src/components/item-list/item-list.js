@@ -1,50 +1,52 @@
 import React, { Component } from 'react';
 
 import './item-list.css';
-import SwapiService from "../../services/api-client";
-import Spinner from "../spinner";
+import Spinner from "../spinner/spinner";
 
 export default class ItemList extends Component {
 
-    swapiService = new SwapiService();
+  state = {
+    itemList: null
+  };
 
-    state = {
-        peopleList: null
+  componentDidMount() {
+
+    const { getData } = this.props;
+
+    getData()
+      .then((itemList) => {
+        this.setState({
+          itemList
+        });
+      });
+  }
+
+  renderItems(arr) {
+    return arr.map(({id, name}) => {
+      return (
+        <li className="list-group-item"
+            key={id}
+            onClick={() => this.props.onItemSelected(id)}>
+          {name}
+        </li>
+      );
+    });
+  }
+
+  render() {
+
+    const { itemList } = this.state;
+
+    if (!itemList) {
+      return <Spinner />;
     }
 
-    componentDidMount() {
-        this.swapiService
-            .getAllPeople()
-            .then((peopleList) => {
-                this.setState({
-                    peopleList
-                });
-            });
-    }
+    const items = this.renderItems(itemList);
 
-    renderItem = (arr) => {
-        return arr.map(({ id, name }) =>{
-            return (
-                <li className="list-group-item"
-                    key={id}
-                    onClick={() => this.props.onItemSelected(id)}>
-                    {name}
-                </li>
-            );
-        })
-    }
-
-    render() {
-        const { peopleList } = this.state;
-        if(!peopleList){
-            return <Spinner/>
-        }
-
-        const items = this.renderItem(peopleList)
-        return (
-          <ul className="item-list list-group">
-                {items}
-          </ul>
-        );
-      }
+    return (
+      <ul className="item-list list-group">
+        {items}
+      </ul>
+    );
+  }
 }
