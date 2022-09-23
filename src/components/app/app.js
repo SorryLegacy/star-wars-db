@@ -3,14 +3,12 @@ import React, { Component } from 'react';
 import Header from '../header';
 import RandomPlanet from '../random-planet';
 import ErrorIndicator from '../error-indicator';
-import PeoplePage from '../people-page';
 
 import './app.css';
-import SwapiService from "../../services/api-client";
+import {PersonList} from "../sw-components";
+import {PersonDetails} from "../sw-components";
 
 export default class App extends Component {
-
-  swapiService = new SwapiService();
 
   state = {
     showRandomPlanet: true,
@@ -35,7 +33,8 @@ export default class App extends Component {
       <div className="stardb-app">
         <Header />
         { planet }
-        <PeoplePage />
+        <PersonList />
+        <PersonDetails itemId={11}/>
       </div>
     );
   }

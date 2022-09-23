@@ -3,23 +3,7 @@ import React, { Component } from 'react';
 import './item-list.css';
 import Spinner from "../spinner/spinner";
 
-export default class ItemList extends Component {
-
-  state = {
-    itemList: null
-  };
-
-  componentDidMount() {
-
-    const { getData } = this.props;
-
-    getData()
-      .then((itemList) => {
-        this.setState({
-          itemList
-        });
-      });
-  }
+class ItemList extends Component {
 
   renderItems(arr) {
     return arr.map((item) => {
@@ -38,13 +22,13 @@ export default class ItemList extends Component {
 
   render() {
 
-    const { itemList } = this.state;
+    const { data } = this.props;
 
-    if (!itemList) {
+    if (!data) {
       return <Spinner />;
     }
 
-    const items = this.renderItems(itemList);
+    const items = this.renderItems(data);
 
     return (
       <ul className="item-list list-group">
@@ -53,3 +37,5 @@ export default class ItemList extends Component {
     );
   }
 }
+
+export default ItemList;
