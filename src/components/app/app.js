@@ -45,7 +45,7 @@ export default class App extends Component {
             <Header />
             { planet }
             <PersonList />
-            <PersonDetails itemId={11}/>
+            <PersonDetails itemId={2}/>
           </div>
             </SwapiServiceProvider>
         </ErrorHandler>
