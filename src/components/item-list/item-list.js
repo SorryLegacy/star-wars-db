@@ -5,6 +5,9 @@ import Spinner from "../spinner/spinner";
 
 class ItemList extends Component {
 
+  static defaultProps = {
+  onItemSelected: () => {}
+};
   renderItems(arr) {
     return arr.map((item) => {
       const { id } = item;
